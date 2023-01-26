@@ -34,6 +34,7 @@ def start_browser(account):
     driver = wd.Chrome(service=Service('chromedriver.exe'), options=chrome_options_setting)
     driver.set_window_position(x_coordinates, y_coordinates)
     driver.set_window_size(MAX_WIDTH_EACH_WINDOW, MAX_HEIGHT_EACH_WINDOW)
+    # input('test')
     info_account = reg_outlook(driver, account)
     return info_account
 
@@ -68,7 +69,7 @@ if __name__ == '__main__':
     top = Tk()
     top.title('Auto Reg Hotmail - Thuan Luu')
     top.geometry("340x190+790+300")
-    top.resizable(True, True)
+    top.resizable(False, False)
 
     # value
     max_threading_number = tkinter.IntVar(value=1)

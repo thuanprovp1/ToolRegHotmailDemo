@@ -11,7 +11,7 @@ import requests
 # data_full= [{'username': 'vigorous_euclid6', 'password': '00aYrV5g57', 'firstname': 'Trần Đỗ Thị', 'lastname': 'Hoa', 'data_of_birth': '02/28/2003', 'current_row': 2},..,{}]
 def reg_outlook(driver, data):
     wait = WebDriverWait(driver, 12)
-    driver.set_page_load_timeout(20)
+    driver.set_page_load_timeout(40)
     try:
         driver.get('https://outlook.live.com/owa/?nlp=1&signup=1')
         # fill username
@@ -52,14 +52,13 @@ def reg_outlook(driver, data):
         return 'LIVE| {} | {}'.format(data['username'], data['password'])
     except Exception as e:
         e = re.sub(r'Stacktrace.+', '', str(e), flags=re.S)
-        print('DEAD| {} | {} '.format(data['username'], data['password']))
         error_mess = driver.find_elements(By.ID, 'MemberNameError')
+        print('DEAD| {} | {} | {} | {}'.format(data['username'], data['password'], error_mess, e))
         if error_mess:
             return '{}'.format(error_mess[0].text)
         elif driver.find_elements(By.CSS_SELECTOR, 'a[title="Send code"]'):
             return 'verify phone'
         else:
-
             return 'Error: {}'.format(e)
     finally:
         time.sleep(4)
