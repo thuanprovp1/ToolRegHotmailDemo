@@ -1,0 +1,8 @@
+Open file ~AnyCaptchaExtension\js\config_ac_api_key.js
+Input your API KEY for antiCaptchaPredefinedApiKey
+https://docs.anycaptcha.com/extensions/chrome-extension
+
+pip install selenium
+pip install openpyxl
+pip install requests
+

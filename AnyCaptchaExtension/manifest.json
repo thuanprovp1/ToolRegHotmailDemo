@@ -1,0 +1,55 @@
+{
+   "applications": {
+      "gecko": {
+         "id": "{487609b5-5ca6-4c62-8523-11f3e1db851c}",
+         "update_url": "https://anycaptcha.com/update/update.xml"
+      }
+   },
+   "background": {
+      "persistent": true,
+      "scripts": [ "/js/config_ac_api_key.js", "/js/background.js"]
+   },
+   "browser_action": {
+      "default_icon": {
+         "16": "/img/logo/16.png",
+         "32": "/img/logo/32.png"
+      },
+      "default_popup": "options.html",
+      "default_title": "Show my balance"
+   },
+   "content_scripts": [ {
+      "all_frames": true,
+      "js": [ "/js/content_scripts1.js" ],
+      "match_about_blank": true,
+      "matches": [ "http://*/*", "https://*/*" ],
+      "run_at": "document_start"
+   }, {
+      "all_frames": true,
+      "css": [ "/css/content_scripts.css" ],
+      "js": [ "/js/content_scripts2.js" ],
+      "match_about_blank": true,
+      "matches": [ "http://*/*", "https://*/*" ]
+   } ],
+   "default_locale": "en",
+   "description": "Automatic captcha solving service - Fastest & cheapest",
+   "icons": {
+      "128": "/img/logo/128.png",
+      "16": "/img/logo/16.png",
+      "48": "/img/logo/48.png"
+   },"manifest_version": 2,
+   "name": "Anycaptcha Enxtension 2.0.1",
+   "oauth2": {
+      "client_id": "216545209139-4lbiot8mq929jriphbqgad4jtiutuqib.apps.googleusercontent.com",
+      "scopes": [ "profile" ]
+   },
+   "options_page": "options.html",
+   "options_ui": {
+      "chrome_style": true,
+      "page": "options.html"
+   },
+   "permissions": [ "activeTab", "storage", "contextMenus", "identity", "identity.email", "\u003Call_urls>", "webRequest", "webRequestBlocking" ],
+   "short_name": "Anycaptcha",
+   "update_url": "https://anycaptcha.com/update/update.xml",
+   "version": "2.0.1",
+   "web_accessible_resources": [ "/img/*", "/css/*", "/sounds/*", "/js/recaptcha3_object_interceptor.js", "/js/recaptcha3_object_interceptor_callback.js", "/js/funcaptcha_object_inteceptor.js", "/js/hcaptcha_object_inteceptor.js", "/js/post_message_poste_restante.js", "/js/geetest_object_interceptor.js", "/js/mocking_headless.js" ]
+}
