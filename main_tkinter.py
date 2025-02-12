@@ -11,6 +11,7 @@ from selenium import webdriver as wd
 from selenium.webdriver.chrome.service import Service
 
 from src.create_hotmail import reg_outlook
+from src.get_ip_tinsoft import get_new_ip_tinsoft
 from src.get_resolution_computer import max_size_each_browser_new
 from src.privateChromeOptions import setting_chrome_privated
 from src.readExcelData import read_info_in_excel, write_status
@@ -22,13 +23,17 @@ WINDOW_LIST_COORDINATES = list()
 
 def start_browser(account):
     global status_lbl_text, use_proxy_var
-    has_proxy = bool(use_proxy_var.get())
+    proxy_option = use_proxy_var.get()
     x_coordinates, y_coordinates = next(WINDOW_LIST_COORDINATES)
-    if has_proxy:
+    if proxy_option == 1:
         if account['proxy'] is not None and account['proxy'] != '':
             chrome_options_setting = setting_chrome_privated(account['proxy'])
         else:
             return 'Bạn chưa điền proxy'
+    elif proxy_option == 2:
+        ip_tinsoft = get_new_ip_tinsoft('TLx8Fx5A5LPneu0veViICyUMk2y1XznlFWBK2r')
+        print(ip_tinsoft)
+        chrome_options_setting = setting_chrome_privated(ip_tinsoft)
     else:
         chrome_options_setting = setting_chrome_privated(False)
     driver = wd.Chrome(service=Service('chromedriver.exe'), options=chrome_options_setting)
@@ -68,8 +73,8 @@ def start_reg_account():
 if __name__ == '__main__':
     top = Tk()
     top.title('Auto Reg Hotmail - Thuan Luu')
-    top.geometry("340x190+790+300")
-    top.resizable(False, False)
+    top.geometry("410x165+790+300")
+    top.resizable(True, True)
 
     # value
     max_threading_number = tkinter.IntVar(value=1)
@@ -82,16 +87,18 @@ if __name__ == '__main__':
     main_zone.grid(row=0, column=0, columnspan=3, ipadx=12, ipady=8, padx=15, pady=5)
 
     # thread number
-    Label(main_zone, text="Số luồng", wraplength=260).grid(row=1, column=0, sticky='ns', padx=12)
-    max_thearding_number_entry = Entry(main_zone, width=30, text=max_threading_number)
+    Label(main_zone, text="Số luồng", wraplength=260).grid(row=1, column=0, sticky='ns')
+    max_thearding_number_entry = Entry(main_zone, width=45, text=max_threading_number)
     max_thearding_number_entry.grid(row=1, column=1, sticky='nw', padx=(10, 0))
 
     # user proxy
     Label(main_zone, text="Dùng proxy").grid(row=2, column=0, sticky='ns')
-    use_proxy_radio = Radiobutton(main_zone, text="Có", variable=use_proxy_var, value=1)
-    use_proxy_radio.grid(row=2, column=1, sticky='nw', padx=5)
+    use_proxy_excel_radio = Radiobutton(main_zone, text="Proxy Excel", variable=use_proxy_var, value=1)
+    use_proxy_excel_radio.grid(row=2, column=1, sticky='w')
+    use_proxy_tinsoft_radio = Radiobutton(main_zone, text="Proxy Tinsoft", variable=use_proxy_var, value=2)
+    use_proxy_tinsoft_radio.grid(row=2, column=1, sticky='ns')
     not_use_proxy_radio = Radiobutton(main_zone, text="Không", variable=use_proxy_var, value=0)
-    not_use_proxy_radio.grid(row=2, column=1, sticky='ne', padx=(0, 20))
+    not_use_proxy_radio.grid(row=2, column=1, sticky='e')
 
     # status
     Label(main_zone, text="Trạng thái: ", font=("Helvetica", 10)).grid(row=3, column=0, sticky='ns')

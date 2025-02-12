@@ -37,7 +37,7 @@ def setting_chrome_privated(proxy):
     # add extension, only file crx appect
     # chrome_options.add_extension(r'C:\Users\This PC\PycharmProjects\RegHotMail_version_pro\AnyCaptchaExtension.crx')
     # load extension
-    chrome_options.add_argument(r"--load-extension=" + os.getcwd() + '\\AnyCaptchaExtension')
+    chrome_options.add_argument(r"--load-extension=" + os.getcwd() + '\\anycaptcha')
 
     # chrome_options.add_argument("start-maximized")
     chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
